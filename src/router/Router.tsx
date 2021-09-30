@@ -30,6 +30,10 @@ export const Router: VFC = memo(() => {
         )}
       />
       {/* /*で指定以外のパスをルートさせる */}
+
+      {/* /home/xxxxxxだと　/homeのほうにルーティングが流れて４０４を反映させられない。　/home以下でも指定する */}
+      {/* HomeRoutes.tsxに記述 */}
+
       <Route exact path="*">
         <Page404 />
       </Route>
