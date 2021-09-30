@@ -4,8 +4,10 @@ import { Home } from "../components/pages/Home";
 import { Setting } from "../components/pages/Setting";
 import { UserManagement } from "../components/pages/UserManagement";
 
+// /home配下の３つの画面のルーティングを作成
 export const HomeRoutes = [
   {
+    // homeのpath 直ルートではないことに注意
     path: "/",
     exact: true,
     children: <Home />
