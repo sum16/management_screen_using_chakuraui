@@ -1,8 +1,9 @@
 import { memo, VFC } from "react";
 import { Route, Switch } from "react-router-dom";
-import { Login } from "../components/pages/Login";
 
+import { Login } from "../components/pages/Login";
 import { HomeRoutes } from "./HomeRoutes";
+import { Page404 } from "../components/pages/Page404";
 
 export const Router: VFC = memo(() => {
   return (
@@ -28,6 +29,12 @@ export const Router: VFC = memo(() => {
           </Switch>
         )}
       />
+      {/* /*で指定以外のパスをルートさせる */}
+      {/* /home/xxxxxxだと　/homeのほうにルーティングが流れて４０４を反映させられない。　/home以下でも指定する */}
+      {/* HomeRoutes.tsxに記述 */}
+      <Route exact path="*">
+        <Page404 />
+      </Route>
     </Switch>
   );
 });
