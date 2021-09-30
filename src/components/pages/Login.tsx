@@ -8,6 +8,8 @@ import {
   Stack
 } from "@chakra-ui/react";
 import { memo, VFC } from "react";
+
+import { PrimaryButton } from "../atoms/button/PrimaryButton";
 // React.memoを使うと親から子コンポーネントに渡している props が更新されない限り(後述する callback 関数とかは別)子コンポーネントは再レンダリングされない
 
 export const Login: VFC = memo(() => {
@@ -21,9 +23,7 @@ export const Login: VFC = memo(() => {
         {/* Stack ~囲った要素を問等間隔で配置 */}
         <Stack spacing={6} py={4} px={10}>
           <Input placeholder="ユーザーID" />
-          <Button bg="teal.400" color="white" _hover={{ opacity: 0.8 }}>
-            ログイン
-          </Button>
+          <PrimaryButton>ログイン</PrimaryButton>
         </Stack>
       </Box>
     </Flex>
