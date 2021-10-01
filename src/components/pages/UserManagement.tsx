@@ -1,5 +1,19 @@
+// Wrap レスポンシブ
+import { Box, Image, Stack, Text, Wrap, WrapItem } from "@chakra-ui/react";
 import { memo, VFC } from "react";
 
+import { UserCard } from "../organisms/user/UserCard";
+
 export const UserManagement: VFC = memo(() => {
-  return <p>管理画面</p>;
+  return (
+    <Wrap p={{ base: 4, md: 10 }}>
+      <WrapItem>
+        <UserCard
+          imageUrl="https://source.unsplash.com/random"
+          profession="エンジニア"
+          fullName="佐藤康行"
+        />
+      </WrapItem>
+    </Wrap>
+  );
 });
