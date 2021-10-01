@@ -1,5 +1,5 @@
-import { Box, Button, Image, Stack, Text } from "@chakra-ui/react";
-import { memo, VFC, ReactNode } from "react";
+import { Box, Image, Stack, Text } from "@chakra-ui/react";
+import { memo, VFC } from "react";
 // React.memoを使うと親から子コンポーネントに渡している props が更新されない限り(後述する callback 関数とかは別)子コンポーネントは再レンダリングされない
 
 type Props = {
