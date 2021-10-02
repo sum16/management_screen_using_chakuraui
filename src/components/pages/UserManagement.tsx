@@ -1,13 +1,26 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // Wrap レスポンシブ
-import { Center, Spinner, Wrap, WrapItem } from "@chakra-ui/react";
-import { memo, useEffect, VFC } from "react";
+import {
+  Center,
+  Spinner,
+  useDisclosure,
+  Wrap,
+  WrapItem
+} from "@chakra-ui/react";
+import { memo, useCallback, useEffect, VFC } from "react";
 
 import { UseAllUsers } from "../hooks/useAllUsers";
 import { UserCard } from "../organisms/user/UserCard";
+import { UserModalDetail } from "../organisms/user/UserModalDetail";
 
 export const UserManagement: VFC = memo(() => {
   const { getUsers, users, loading } = UseAllUsers();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  // useDisclosure chakraUiのカスタムフック
+
+  // ユーザーをクリックしたときにModalを実装
+  // useCallbackでメモ化
+  const onClickUser = useCallback(() => onOpen(), []);
 
   // 第２引数を[]にすることで初回のレンダリングのみで呼ばれる
   useEffect(() => getUsers, []);
@@ -23,6 +36,7 @@ export const UserManagement: VFC = memo(() => {
           {users.map((user) => (
             <WrapItem key={user.id} mx="auto">
               <UserCard
+                onClick={onClickUser}
                 imageUrl="https://source.unsplash.com/random"
                 profession={user.username}
                 fullName={user.name}
@@ -31,6 +45,7 @@ export const UserManagement: VFC = memo(() => {
           ))}
         </Wrap>
       )}
+      <UserModalDetail isOpen={isOpen} onClose={onClose} />
     </>
   );
 });
