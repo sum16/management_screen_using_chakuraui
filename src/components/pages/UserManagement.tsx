@@ -10,25 +10,32 @@ import {
 import { memo, useCallback, useEffect, VFC } from "react";
 
 import { UseAllUsers } from "../hooks/useAllUsers";
+import { useSelectUser } from "../hooks/useSelectUser";
 import { UserCard } from "../organisms/user/UserCard";
 import { UserModalDetail } from "../organisms/user/UserModalDetail";
 
 export const UserManagement: VFC = memo(() => {
   const { getUsers, users, loading } = UseAllUsers();
-  const { isOpen, onOpen, onClose } = useDisclosure();
   // useDisclosure chakraUiのカスタムフック
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { onSelectUser, selectedUser } = useSelectUser();
+  console.log(selectedUser);
 
   // ユーザーをクリックしたときにModalを実装
   // useCallbackでメモ化
-  const onClickUser = useCallback((id: number) => {
-    console.log(id);
+  const onClickUser = useCallback(
+    (id: number) => {
+      console.log(id);
+      onSelectUser({ id, users });
 
-    onOpen();
-  }, []);
+      onOpen();
+    },
+    [users, onSelectUser, onOpen]
+  );
 
   // 第２引数を[]にすることで初回のレンダリングのみで呼ばれる
   useEffect(() => getUsers, []);
-  console.log(users);
+  // console.log(users);
   return (
     <>
       {loading ? (
@@ -50,7 +57,7 @@ export const UserManagement: VFC = memo(() => {
           ))}
         </Wrap>
       )}
-      <UserModalDetail isOpen={isOpen} onClose={onClose} />
+      <UserModalDetail user={selectedUser} isOpen={isOpen} onClose={onClose} />
     </>
   );
 });
