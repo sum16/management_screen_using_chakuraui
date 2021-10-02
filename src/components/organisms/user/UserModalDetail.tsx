@@ -11,15 +11,17 @@ import {
   ModalOverlay
 } from "@chakra-ui/react";
 import { memo, VFC } from "react";
+import { UserType } from "../../../types/api/user";
 // React.memoを使うと親から子コンポーネントに渡している props が更新されない限り(後述する callback 関数とかは別)子コンポーネントは再レンダリングされない
 
 type Props = {
+  user: UserType | null;
   isOpen: boolean;
   onClose: () => void;
 };
 
 export const UserModalDetail: VFC<Props> = memo((props) => {
-  const { isOpen, onClose } = props;
+  const { user, isOpen, onClose } = props;
   return (
     <Modal
       isOpen={isOpen}
@@ -35,19 +37,19 @@ export const UserModalDetail: VFC<Props> = memo((props) => {
           <Stack spacing={4}>
             <FormControl>
               <FormLabel>名前</FormLabel>
-              <Input value="さとー" isReadOnly />
+              <Input value={user?.username} isReadOnly />
             </FormControl>
             <FormControl>
               <FormLabel>フルネーム</FormLabel>
-              <Input value="佐藤康行" isReadOnly />
+              <Input value={user?.name} isReadOnly />
             </FormControl>
             <FormControl>
               <FormLabel>メール</FormLabel>
-              <Input value="hoge@mail.com" isReadOnly />
+              <Input value={user?.email} isReadOnly />
             </FormControl>
             <FormControl>
               <FormLabel>TEL</FormLabel>
-              <Input value="000-111-222" isReadOnly />
+              <Input value={user?.phone} isReadOnly />
             </FormControl>
           </Stack>
         </ModalBody>
