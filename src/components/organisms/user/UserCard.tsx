@@ -3,13 +3,14 @@ import { memo, VFC } from "react";
 // React.memoを使うと親から子コンポーネントに渡している props が更新されない限り(後述する callback 関数とかは別)子コンポーネントは再レンダリングされない
 
 type Props = {
+  id: number;
   imageUrl: string;
   fullName: string;
   profession: string;
-  onClick: () => void;
+  onClick: (id: number) => void;
 };
 export const UserCard: VFC<Props> = memo((props) => {
-  const { imageUrl, fullName, profession, onClick } = props;
+  const { id, imageUrl, fullName, profession, onClick } = props;
   return (
     <Box
       w="260px"
@@ -19,7 +20,7 @@ export const UserCard: VFC<Props> = memo((props) => {
       shadow="md"
       p={4}
       _hover={{ cursor: "pointer", opacity: "0.8" }}
-      onClick={onClick}
+      onClick={() => onClick(id)}
     >
       <Stack textAlign="center">
         <Image
