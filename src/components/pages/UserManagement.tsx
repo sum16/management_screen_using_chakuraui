@@ -20,7 +20,11 @@ export const UserManagement: VFC = memo(() => {
 
   // ユーザーをクリックしたときにModalを実装
   // useCallbackでメモ化
-  const onClickUser = useCallback(() => onOpen(), []);
+  const onClickUser = useCallback((id: number) => {
+    console.log(id);
+
+    onOpen();
+  }, []);
 
   // 第２引数を[]にすることで初回のレンダリングのみで呼ばれる
   useEffect(() => getUsers, []);
@@ -36,6 +40,7 @@ export const UserManagement: VFC = memo(() => {
           {users.map((user) => (
             <WrapItem key={user.id} mx="auto">
               <UserCard
+                id={user.id}
                 onClick={onClickUser}
                 imageUrl="https://source.unsplash.com/random"
                 profession={user.username}
