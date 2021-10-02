@@ -4,12 +4,14 @@ import { useHistory } from "react-router-dom";
 
 import { UserType } from "../../types/api/user";
 import { useMessage } from "./useMessage";
+import { useLoginUser } from "../hooks/useLoginUser";
 
 export const useAuth = () => {
   // ルーティングで使用
   const history = useHistory();
   const [loading, setLoading] = useState(false);
   const { showMessage } = useMessage();
+  const { setLoginUser } = useLoginUser();
 
   const login = useCallback(
     (id: string) => {
@@ -18,6 +20,8 @@ export const useAuth = () => {
         .get<UserType>(`https://jsonplaceholder.typicode.com/users/${id}`)
         .then((res) => {
           if (res.data) {
+            const isAdmin = res.data.id === 10 ? true : false;
+            setLoginUser({ ...res.data, isAdmin });
             showMessage({ title: "ログインしました", status: "success" });
             history.push("/home");
           } else {
@@ -29,7 +33,7 @@ export const useAuth = () => {
         )
         .finally(() => setLoading(false));
     },
-    [history, showMessage]
+    [history, showMessage, setLoginUser]
   );
   return { login, loading };
   // カスタムフックから返却

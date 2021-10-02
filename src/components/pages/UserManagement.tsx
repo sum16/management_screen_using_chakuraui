@@ -13,12 +13,14 @@ import { UseAllUsers } from "../hooks/useAllUsers";
 import { useSelectUser } from "../hooks/useSelectUser";
 import { UserCard } from "../organisms/user/UserCard";
 import { UserModalDetail } from "../organisms/user/UserModalDetail";
+import { useLoginUser } from "../hooks/useLoginUser";
 
 export const UserManagement: VFC = memo(() => {
   const { getUsers, users, loading } = UseAllUsers();
   // useDisclosure chakraUiのカスタムフック
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { onSelectUser, selectedUser } = useSelectUser();
+  const { LoginUser } = useLoginUser();
   console.log(selectedUser);
 
   // ユーザーをクリックしたときにModalを実装
